@@ -73,7 +73,7 @@ func init() {
 // @contact.email lenart.consulting@gmail.com
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
-// @host http://localhost:8888
+// @host https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io
 // @BasePath /
 func main() {
 	router := mux.NewRouter()
