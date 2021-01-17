@@ -41,4 +41,4 @@ Run project open: `http://localhost:8888/docs/index.html`, to view API documenta
 
 ## Why
 
-I am big fun(c) of the Youtube podcast series [Just for func](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw) and I enjoy GO.
+I am a big fun(c) of the Youtube podcast series: [Just for func](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw), and I enjoy GO.
