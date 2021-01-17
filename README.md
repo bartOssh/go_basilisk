@@ -1,6 +1,6 @@
 # GO Basilisk v 0.1.0
 
-HTTP micro-service to make screenshot of a web page to jpeg image  ![Build](https://github.com/bartOssh/go_basilisk/workflows/Go/badge.svg?branch=main)
+HTTP micro-service to make screenshot of a web page to jpeg image  <p align="right">![Build](https://github.com/bartOssh/go_basilisk/workflows/Go/badge.svg?branch=main)</p>
 
 [![FUN](https://varsisava.pl/wp-content/uploads/2016/12/Operacja-Bazyliszek.jpg)](https://www.youtube.com/watch?v=qS2xTGLCu-M&t)
 
