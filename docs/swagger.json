@@ -14,7 +14,7 @@
         },
         "version": "0.1.0"
     },
-    "host": "https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io/",
+    "host": "https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io",
     "basePath": "/",
     "paths": {
         "/screenshot/jpeg": {

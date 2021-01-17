@@ -107,7 +107,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "0.1.0",
-	Host:        "https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io/",
+	Host:        "https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Go Basilisk",

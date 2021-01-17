@@ -5,7 +5,7 @@ definitions:
       url:
         type: string
     type: object
-host: https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io/
+host: https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io
 info:
   contact:
     email: lenart.consulting@gmail.com
