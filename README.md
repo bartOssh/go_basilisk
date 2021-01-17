@@ -17,15 +17,20 @@ Run before first build or run to generate docs (swagger)
 
 1. Project is developed in GO, run:
    ```bash
-    go run .
+        go run .
    ```
-2. Destination machine is Ubuntu 20.04^, but should work on other Linux OS, Windows and Darwin
-3. Project is deployed as binary executable
-4. Please set environment variables according to .env.example or set global ENV variables alongside executable
+2. Build with:
+    ```bash
+        go build -o <name> .
+    ```
+3. Destination machine is Ubuntu 20.04^, but should work on other Linux OS, Windows and Darwin
+4. Project is deployed as binary executable
+5. Please set environment variables according to .env.example or make .env alongside executable
 
-## Test
+## Tests
 
-1. Run `go test .`
+1. Run `go test`
+2. Tests are covering one existing endpoint `/screenshot/jpeg?token=your_app_token` and services/helpers units
 
 ## Issues, pull requests and suggestion
 
