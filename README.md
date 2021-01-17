@@ -39,6 +39,12 @@ Just open pull request with proposed changes or add [issue](https://github.com/b
 
 Run project open: `http://localhost:8888/docs/index.html`, to view API documentation
 
+## Performance
+
+Performance highly depands on how fast web page We want to take screenshot of is responding to request.
+Making screenshot of: "https://github.com/bartOssh/go_basilisk" took ~1.6 second on average.
+Tested on shared 1 CPU server with 512 MB RAM.
+
 ## Why
 
 I am a big fun(c) of the Youtube podcast series: [Just for func](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw), and I enjoy GO.
