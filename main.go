@@ -73,7 +73,7 @@ func init() {
 // @contact.email lenart.consulting@gmail.com
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
-// @host localhost:8888
+// @host http://localhost:8888
 // @BasePath /
 func main() {
 	router := mux.NewRouter()

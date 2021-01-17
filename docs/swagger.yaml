@@ -5,12 +5,12 @@ definitions:
       url:
         type: string
     type: object
-host: localhost:8888
+host: https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io/
 info:
   contact:
     email: lenart.consulting@gmail.com
     name: Bartosz Lenart
-  description: HTTP Microservice to make screenshot of a web page
+  description: HTTP Micro service to make screenshot of a web page
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -29,7 +29,7 @@ paths:
         name: token
         required: true
         type: string
-      - description: Url schema to screenshot a web page from
+      - description: URL schema to screenshot a web page from
         in: body
         name: schema
         required: true
@@ -48,7 +48,7 @@ paths:
           description: Internal Server Error
           schema:
             type: ""
-      summary: Makes wep page screenshot to jpeg
+      summary: Makes web page screenshot to jpeg
       tags:
       - Scanners
 swagger: "2.0"
