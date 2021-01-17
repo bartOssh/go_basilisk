@@ -1,6 +1,6 @@
 # GO Basilisk v 0.1.0
 
-HTTP micro-service scanning web page to png format
+HTTP micro-service for scanning web page to png format
 
 [![FUN](https://varsisava.pl/wp-content/uploads/2016/12/Operacja-Bazyliszek.jpg)](https://www.youtube.com/watch?v=qS2xTGLCu-M&t)
 
