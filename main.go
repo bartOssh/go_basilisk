@@ -11,12 +11,14 @@ import (
 	"strconv"
 	"time"
 
+	_ "github.com/bartOssh/go_basilisk/docs"
 	db "github.com/bartOssh/go_basilisk/services"
 	"github.com/chromedp/cdproto/emulation"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 const (
@@ -30,6 +32,11 @@ var (
 	dbClient          *db.MongoClient
 	appToken          string
 )
+
+// URLRequestBody describes schema of request body for web page url to screenshot
+type URLRequestBody struct {
+	URL string `json:"url"`
+}
 
 func init() {
 	err := godotenv.Load()
@@ -58,10 +65,22 @@ func init() {
 	log.Println("initialization of API Client with success")
 }
 
+// @title Go Basilisk
+// @version 0.1.0
+// @description HTTP Microservice to make screenshot of a web page
+// @termsOfService https://opensource.org/licenses/MIT
+// @contact.name Bartosz Lenart
+// @contact.email lenart.consulting@gmail.com
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+// @host localhost:8888
+// @BasePath /
 func main() {
 	router := mux.NewRouter()
-	router.Use(validateToken)
-	router.HandleFunc("/png", scanPng).Methods("POST")
+	router.PathPrefix("/docs").Handler(httpSwagger.WrapHandler).Methods("GET")
+	screenshotRouter := router.PathPrefix("/screenshot").Subrouter()
+	screenshotRouter.Use(validateToken)
+	screenshotRouter.HandleFunc("/jpeg", screenshotJpeg).Methods("POST")
 
 	srv := &http.Server{
 		Handler:      router,
@@ -89,8 +108,18 @@ func main() {
 	os.Exit(0)
 }
 
-// scanPng is png web page screenshot handler
-func scanPng(w http.ResponseWriter, r *http.Request) {
+// screenshotJpeg godoc
+// @Summary Makes wep page screenshot to jpeg
+// @Description Makes full page screenshot to jpeg and returns jpeg buffer
+// @Tags Scanners
+// @Accept json
+// @Param token query string true "Token"
+// @Param schema body URLRequestBody true "Url schema to screenshot a web page from"
+// @Success 200 {} Ok
+// @Failure 401 {} Not authorized
+// @Failure 500 {} Internal server error, if not valid query provided
+// @Router /screenshot/jpeg [post]
+func screenshotJpeg(w http.ResponseWriter, r *http.Request) {
 	var request struct {
 		URL string `json:"url"`
 	}

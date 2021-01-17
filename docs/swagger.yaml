@@ -1,0 +1,54 @@
+basePath: /
+definitions:
+  main.URLRequestBody:
+    properties:
+      url:
+        type: string
+    type: object
+host: localhost:8888
+info:
+  contact:
+    email: lenart.consulting@gmail.com
+    name: Bartosz Lenart
+  description: HTTP Microservice to make screenshot of a web page
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: https://opensource.org/licenses/MIT
+  title: Go Basilisk
+  version: 0.1.0
+paths:
+  /screenshot/jpeg:
+    post:
+      consumes:
+      - application/json
+      description: Makes full page screenshot to jpeg and returns jpeg buffer
+      parameters:
+      - description: Token
+        in: query
+        name: token
+        required: true
+        type: string
+      - description: Url schema to screenshot a web page from
+        in: body
+        name: schema
+        required: true
+        schema:
+          $ref: '#/definitions/main.URLRequestBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: ""
+        "401":
+          description: Unauthorized
+          schema:
+            type: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            type: ""
+      summary: Makes wep page screenshot to jpeg
+      tags:
+      - Scanners
+swagger: "2.0"

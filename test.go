@@ -11,13 +11,14 @@ import (
 	db "github.com/bartOssh/go_basilisk/services"
 )
 
+// TestHealthCheckHandler for screenshot/jpeg route
 func TestHealthCheckHandler(t *testing.T) {
 	dbURI := os.Getenv("MONGODB_ADDON_URI")
 	dbName := os.Getenv("MONGODB_ADDON_DB")
 	dbClient, _ = db.NewMongoClient(dbURI, dbName)
 	appToken, _ = dbClient.GetToken()
 
-	uri := fmt.Sprintf("/url?token=%s", appToken)
+	uri := fmt.Sprintf("/screenshot/jpeg?token=%s", appToken)
 
 	req, err := http.NewRequest("GET", uri, bytes.NewBuffer([]byte(`{"url" : "http://google.com"}`)))
 	if err != nil {
@@ -25,7 +26,7 @@ func TestHealthCheckHandler(t *testing.T) {
 	}
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(scanPng)
+	handler := http.HandlerFunc(screenshotJpeg)
 
 	handler.ServeHTTP(rr, req)
 
