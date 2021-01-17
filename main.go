@@ -12,7 +12,7 @@ import (
 	"time"
 
 	_ "github.com/bartOssh/go_basilisk/docs"
-	db "github.com/bartOssh/go_basilisk/services"
+	services "github.com/bartOssh/go_basilisk/services"
 	"github.com/chromedp/cdproto/emulation"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
@@ -29,7 +29,7 @@ const (
 
 var (
 	srvAddressAndPort string
-	dbClient          *db.MongoClient
+	dbClient          *services.MongoClient
 	appToken          string
 )
 
@@ -47,7 +47,7 @@ func init() {
 	dbURI := os.Getenv("MONGODB_ADDON_URI")
 	dbName := os.Getenv("MONGODB_ADDON_DB")
 	setToken := os.Getenv("SET_RESET_TOKEN")
-	dbClient, err = db.NewMongoClient(dbURI, dbName)
+	dbClient, err = services.NewMongoClient(dbURI, dbName)
 	if setToken == "true" {
 		err = dbClient.SetToken()
 		if err != nil {
@@ -67,7 +67,7 @@ func init() {
 
 // @title Go Basilisk
 // @version 0.1.0
-// @description HTTP Microservice to make screenshot of a web page
+// @description HTTP Micro service to make screenshot of a web page
 // @termsOfService https://opensource.org/licenses/MIT
 // @contact.name Bartosz Lenart
 // @contact.email lenart.consulting@gmail.com
@@ -109,13 +109,13 @@ func main() {
 }
 
 // screenshotJpeg godoc
-// @Summary Makes wep page screenshot to jpeg
+// @Summary Makes web page screenshot to jpeg
 // @Description Makes full page screenshot to jpeg and returns jpeg buffer
 // @Tags Scanners
 // @Accept json
 // @Param token query string true "Token"
-// @Param schema body URLRequestBody true "Url schema to screenshot a web page from"
-// @Success 200 {} Ok
+// @Param schema body URLRequestBody true "URL schema to screenshot a web page from"
+// @Success 200 {} OK
 // @Failure 401 {} Not authorized
 // @Failure 500 {} Internal server error, if not valid query provided
 // @Router /screenshot/jpeg [post]
@@ -134,18 +134,18 @@ func screenshotJpeg(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	var buf []byte
 	if err := chromedp.Run(ctx, pageScreenshot(request.URL, 90, &buf)); err != nil {
-		log.Printf("error in scanPng screenshotting url: %s, error: %s\n", request.URL, err)
+		log.Printf("error in screenshot URL: %s, error: %s\n", request.URL, err)
 	}
 	w.Header().Set("Content-Type", "image/jpeg")
 	w.Header().Set("Content-Length", strconv.Itoa(len(buf)))
 	if _, err := w.Write(buf); err != nil {
-		log.Printf("error in scanPng when sending image screenshot buffer, error: %s\n", err)
+		log.Printf("error in screenshot when sending image screenshot buffer, error: %s\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 	return
 }
 
-// validateToken performs token validation provided in url like so ?token=this_microservices_token
+// validateToken performs token validation provided in URL like so ?token=this_micro_services_token
 func validateToken(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("request from IP: %s\n", r.RemoteAddr)
