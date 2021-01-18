@@ -24,7 +24,7 @@ Run before first build or run to generate docs (swagger)
         go build -o <name> .
     ```
 3. Destination machine is Ubuntu 20.04^, but should work on other Linux OS, Windows and Darwin
-4. Project is deployed as binary executable
+4. Project aims to be deployed as binary executable
 5. Please set environment variables according to .env.example or make .env alongside executable
 
 ## Tests
