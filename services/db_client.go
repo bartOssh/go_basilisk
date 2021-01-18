@@ -19,8 +19,8 @@ const InsertManyBatchMaxSize = 100_000
 // TokenLength is number of bytes in token string
 const TokenLength = 128
 
-// ThisApiName is name of this microservices,
-// all data refering to this microservice are written under this name in database
+// ThisApiName is name of this micro services,
+// all data referring to this micro service are written under this name in database
 const ThisApiName = "go_basilisk"
 
 // Collection represents mongo db collection name
