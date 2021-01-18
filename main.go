@@ -112,7 +112,7 @@ func main() {
 // @Summary Makes web page screenshot to jpeg
 // @Description Makes full page screenshot to jpeg and returns jpeg buffer
 // @Tags Scanners
-// @Accept json
+// @Accept jpeg
 // @Param token query string true "Token"
 // @Param schema body URLRequestBody true "URL schema to screenshot a web page from"
 // @Success 200 {} OK

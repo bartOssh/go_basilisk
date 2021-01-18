@@ -1,10 +1,10 @@
 # GO Basilisk v 0.1.0
 
-HTTP micro-service to make screenshot of a web page to jpeg image  <p align="right">![Build](https://github.com/bartOssh/go_basilisk/workflows/Go/badge.svg?branch=main)</p>
+HTTP micro-service to make screenshot of a web page to jpeg image  <span align="right">![Build](https://github.com/bartOssh/go_basilisk/workflows/Go/badge.svg?branch=main)</span>
 
 [![FUN](https://varsisava.pl/wp-content/uploads/2016/12/Operacja-Bazyliszek.jpg)](https://www.youtube.com/watch?v=qS2xTGLCu-M&t)
 
-## If swagger not generated
+## Generate swagger docs
 
 Run before first build or run to generate docs (swagger)
 
@@ -49,7 +49,4 @@ Run project open: `http://localhost:8888/docs/index.html`, to view API documenta
 Performance highly depands on how fast web page We want to take screenshot of is responding to request.
 Making screenshot of: "https://github.com/bartOssh/go_basilisk" took ~1.6 second on average.
 Tested on shared 1 CPU server with 512 MB RAM.
-
-## Why
-
-I am a big fun(c) of the Youtube podcast series: [Just for func](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw), and I enjoy GO.
+ 
