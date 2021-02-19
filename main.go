@@ -29,7 +29,7 @@ const (
 
 var (
 	srvAddressAndPort string
-	dbClient          *services.MongoClient
+	dbClient          services.MongoStore
 	appToken          string
 )
 
@@ -48,6 +48,7 @@ func init() {
 	dbName := os.Getenv("MONGODB_ADDON_DB")
 	setToken := os.Getenv("SET_RESET_TOKEN")
 	dbClient, err = services.NewMongoClient(dbURI, dbName)
+	defer dbClient.Close()
 	if setToken == "true" {
 		err = dbClient.SetToken()
 		if err != nil {
@@ -100,6 +101,7 @@ func main() {
 	signal.Notify(c, os.Interrupt)
 
 	<-c
+	close(c)
 	wait := time.Duration(exitTimeout) * time.Second
 	ctx, cancel := context.WithTimeout(context.Background(), wait)
 	defer cancel()

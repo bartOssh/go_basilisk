@@ -16,6 +16,7 @@ require (
 	github.com/swaggo/http-swagger v1.0.0
 	github.com/swaggo/swag v1.7.0
 	go.mongodb.org/mongo-driver v1.4.4
+	go.uber.org/goleak v1.1.10 // indirect
 	golang.org/x/text v0.3.5 // indirect
 	golang.org/x/tools v0.0.0-20210115202250-e0d201561e39 // indirect
 )

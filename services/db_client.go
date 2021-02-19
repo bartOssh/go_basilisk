@@ -19,12 +19,19 @@ const InsertManyBatchMaxSize = 100_000
 // TokenLength is number of bytes in token string
 const TokenLength = 128
 
-// ThisApiName is name of this micro services,
+// ThisAPIName is name of this micro services,
 // all data referring to this micro service are written under this name in database
-const ThisApiName = "go_basilisk"
+const ThisAPIName = "go_basilisk"
 
 // Collection represents mongo db collection name
 type Collection string
+
+// MongoStore provides methods on mongo database
+type MongoStore interface {
+	GetToken() (string, error)
+	SetToken() error
+	Close()
+}
 
 // Collections is pseudo enum to access mongo db collection
 var Collections = struct {
@@ -46,7 +53,7 @@ type MongoClient struct {
 
 // NewMongoClient creates instance of MongoClient
 // Connects to mongo db database and returns pointer to new instance structure of MongoClient
-func NewMongoClient(uri, database string) (*MongoClient, error) {
+func NewMongoClient(uri, database string) (MongoStore, error) {
 	clientOptions := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
@@ -67,7 +74,7 @@ func (mc *MongoClient) GetToken() (string, error) {
 	c := mc.inner.Collection(Collections.Tokens)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*DbCallTimeoutSec)
 	defer cancel()
-	query := bson.M{"api_name": ThisApiName}
+	query := bson.M{"api_name": ThisAPIName}
 	var t TokenDB
 	err := c.FindOne(ctx, query).Decode(&t)
 	if err != nil {
@@ -87,12 +94,12 @@ func (mc *MongoClient) SetToken() error {
 		return err
 	}
 	var t TokenDB
-	filter := bson.M{"api_name": ThisApiName, "token": ts}
+	filter := bson.M{"api_name": ThisAPIName, "token": ts}
 	err = c.FindOne(ctx, filter).Decode(&t)
 	if err != nil {
 		log.Printf("error when looking for token: %s\n", err)
 	}
-	token := bson.M{"api_name": ThisApiName, "token": ts}
+	token := bson.M{"api_name": ThisAPIName, "token": ts}
 	if t.APIName == "" && t.Token == "" {
 		res, err := c.InsertOne(ctx, token)
 		if err != nil {
@@ -108,5 +115,11 @@ func (mc *MongoClient) SetToken() error {
 	}
 	log.Printf("upserted %v\n, modified %v\n", res.ModifiedCount, res.ModifiedCount)
 	return nil
+}
 
+// Close closes connection with database
+func (mc *MongoClient) Close() {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*DbCallTimeoutSec)
+	defer cancel()
+	mc.inner.Client().Disconnect(ctx)
 }

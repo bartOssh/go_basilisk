@@ -9,6 +9,8 @@ import (
 	"testing"
 
 	db "github.com/bartOssh/go_basilisk/services"
+	"go.uber.org/goleak"
+	// "go.uber.org/goleak"
 )
 
 // TestHealthCheckHandler for screenshot/jpeg route
@@ -36,5 +38,27 @@ func TestHealthCheckHandler(t *testing.T) {
 	if status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
+	}
+}
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
+
+func Test_main(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		{name: "Test1"},
+		{name: "Test2"},
+		{name: "Test3"},
+		{name: "Test4"},
+		{name: "Test5"},
+	}
+	for _, tt := range tests {
+		fmt.Printf(" test: %s \n", tt.name)
+		t.Run(tt.name, func(t *testing.T) {
+			main()
+		})
 	}
 }
