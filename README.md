@@ -1,4 +1,4 @@
-# GO Basilisk v 1.0.0
+# GO Basilisk
 
 ![Build](https://github.com/bartOssh/go_basilisk/workflows/Go/badge.svg?branch=main)
 
