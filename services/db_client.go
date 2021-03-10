@@ -28,9 +28,14 @@ type Collection string
 
 // MongoStore provides methods on mongo database
 type MongoStore interface {
+	Close()
+}
+
+// TokenAcctions provides token acctions
+type TokenAcctions interface {
 	GetToken() (string, error)
 	SetToken() error
-	Close()
+	MongoStore
 }
 
 // Collections is pseudo enum to access mongo db collection
@@ -53,7 +58,7 @@ type MongoClient struct {
 
 // NewMongoClient creates instance of MongoClient
 // Connects to mongo db database and returns pointer to new instance structure of MongoClient
-func NewMongoClient(uri, database string) (MongoStore, error) {
+func NewMongoClient(uri, database string) (TokenAcctions, error) {
 	clientOptions := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
@@ -105,7 +110,7 @@ func (mc *MongoClient) SetToken() error {
 		if err != nil {
 			return err
 		}
-		log.Printf("upserted id %v\n", res.InsertedID)
+		log.Printf("up serted id %v\n", res.InsertedID)
 		return nil
 	}
 	update := bson.M{"$set": token}
@@ -113,7 +118,7 @@ func (mc *MongoClient) SetToken() error {
 	if err != nil {
 		return err
 	}
-	log.Printf("upserted %v\n, modified %v\n", res.ModifiedCount, res.ModifiedCount)
+	log.Printf("up serted %v\n, modified %v\n", res.ModifiedCount, res.ModifiedCount)
 	return nil
 }
 

@@ -18,22 +18,27 @@ Run before first build or run to generate docs (swagger)
 
 ## Development and deployment
 
-1. Project is developed in GO, run:
+0. Project is developed in GO, run:
    ```bash
         go run .
    ```
-2. Build with:
+1. Build with:
     ```bash
         go build -o <name> .
     ```
-3. Destination machine is Ubuntu 20.04^, but should work on other Linux OS, Windows and Darwin
-4. Project aims to be deployed as binary executable
-5. Please set environment variables according to .env.example or make .env alongside executable
+2. Destination machine is Ubuntu 20.04^, but should work on other Linux OS, Windows and Darwin
+3. Project aims to be deployed as binary executable
+4. Please set environment variables according to .env.example or make .env alongside executable
 
 ## Tests
 
-1. Run `go test`
-2. Tests are covering one existing endpoint `/screenshot/jpeg?token=your_app_token` and services/helpers units
+0. Run `go test`
+1. Tests are covering one existing endpoint `/screenshot/jpeg?token=your_app_token` and services/helpers units
+
+## Debugging and profiling
+
+0. Set flag `DEBUG=true` in `.env` file then go to `http://localhost:6060/debug/pprof/`
+1. Run `go tool pprof -seconds 30 http://localhost:6060/debug/pprof/<heap>` to get <heap>, <cpu> ... profiles snapshots from 30 seconds 
 
 ## Issues, pull requests and suggestion
 

@@ -8,9 +8,13 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime"
 	"strconv"
 	"time"
 
+	_ "net/http/pprof"
+
+	"github.com/bartOssh/go_basilisk/debugger"
 	_ "github.com/bartOssh/go_basilisk/docs"
 	services "github.com/bartOssh/go_basilisk/services"
 	"github.com/chromedp/cdproto/emulation"
@@ -29,8 +33,9 @@ const (
 
 var (
 	srvAddressAndPort string
-	dbClient          services.MongoStore
+	dbClient          services.TokenAcctions
 	appToken          string
+	isDebug           bool
 )
 
 // URLRequestBody describes schema of request body for web page url to screenshot
@@ -43,6 +48,7 @@ func init() {
 	if err != nil {
 		log.Printf("cannot load .env file %s\n looking for global variables", err)
 	}
+	isDebug = os.Getenv("DEBUG") == "true"
 	srvAddressAndPort = os.Getenv("SERVER_IP_PORT")
 	dbURI := os.Getenv("MONGODB_ADDON_URI")
 	dbName := os.Getenv("MONGODB_ADDON_DB")
@@ -77,6 +83,10 @@ func init() {
 // @host https://app-b33c1c94-0688-4054-92fd-c34a56577870.cleverapps.io
 // @BasePath /
 func main() {
+	if isDebug {
+		runtime.SetBlockProfileRate(1)
+		debugger.Run()
+	}
 	router := mux.NewRouter()
 	router.PathPrefix("/docs").Handler(httpSwagger.WrapHandler).Methods("GET")
 	screenshotRouter := router.PathPrefix("/screenshot").Subrouter()
